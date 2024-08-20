@@ -31,6 +31,7 @@ const MessageBubble = styled(motion.div)`
   justify-content: center;
   align-items: center;
   min-height: 60vh;
+  z-index: 2;
 `;
 
 const Heart = styled(motion.div)`
@@ -39,6 +40,8 @@ const Heart = styled(motion.div)`
   background-color: #ff4081;
   transform: rotate(45deg);
   position: absolute;
+  opacity: 0.5;
+  z-index: 1;
   
   &::before, &::after {
     content: '';
@@ -63,6 +66,7 @@ const ProgressBar = styled.div`
   border-radius: 5px;
   overflow: hidden;
   margin-top: 20px;
+  z-index: 2;
 `;
 
 const Progress = styled.div`
@@ -76,6 +80,7 @@ const SwipeInstruction = styled(motion.div)`
   bottom: 40px;
   font-size: 16px;
   color: #ff4081;
+  z-index: 2;
 `;
 
 const EmojiButton = styled(motion.button)`
@@ -84,6 +89,23 @@ const EmojiButton = styled(motion.button)`
   font-size: 24px;
   cursor: pointer;
   margin-top: 10px;
+`;
+
+const FinalCard = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ff4081;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 24px;
+  text-align: center;
+  z-index: 10;
 `;
 
 function App() {
@@ -103,7 +125,7 @@ function App() {
     "You make every single moment worthwhile! Your kindness and beautiful soul touch me deeply.",
     "I want to be your safe haven in this crazy world.",
     "Thank you for being the amazing person you are and brightening my world.",
-    "I lou u sooooooo much Shivuuuuuuuuuuuuuuuuuuuuuuu"
+    "And now, for the grand finale..."
   ];
 
   const emojis = ['💖', '😍', '🥰', '💕', '💓', '💗', '💘', '💝'];
@@ -178,20 +200,26 @@ function App() {
           </SwipeInstruction>
         </>
       ) : (
-        <MessageBubble
+        <FinalCard
           initial={{ scale: 0, rotate: 0 }}
-          animate={{ scale: 1, rotate: [0, 10, -10, 0] }}
+          animate={{ scale: 1, rotate: [0, 360] }}
           transition={{ type: "spring", stiffness: 260, damping: 20 }}
-          onClick={resetMessages}
         >
-          💖 I love you, Kuttyma! 💖
+          <motion.div
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
+          >
+            💖 I lou u sooooooo much Shivuuuuuuuuuuuuuuuuuuuuuuu 💖
+          </motion.div>
           <EmojiButton
             whileTap={{ scale: 1.2 }}
             onClick={resetMessages}
+            style={{ marginTop: 20 }}
           >
             🔄 Start Over
           </EmojiButton>
-        </MessageBubble>
+        </FinalCard>
       )}
       {[...Array(5)].map((_, i) => (
         <Heart
@@ -217,4 +245,4 @@ function App() {
   );
 }
 
-export default App;ver
+export default App;
